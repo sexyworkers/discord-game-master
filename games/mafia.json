@@ -1,0 +1,57 @@
+[
+    {},{},{},{},
+    {    
+        "maf": 0,
+        "don": true,
+        "com": true,
+        "doc": false
+    },
+    {
+        "maf": 0,
+        "don": true,
+        "com": true,
+        "doc": false
+    },
+    {
+        "maf": 2,
+        "don": false,
+        "com": true,
+        "doc": false
+    },
+    {
+        "maf": 2,
+        "don": false,
+        "com": true,
+        "doc": false
+    },
+    {
+        "maf": 1,
+        "don": true,
+        "com": true,
+        "doc": false
+    },
+    {
+        "maf": 1,
+        "don": true,
+        "com": true,
+        "doc": false
+    },
+    {
+        "maf": 2,
+        "don": true,
+        "com": true,
+        "doc": true
+    },
+    {
+        "maf": 3,
+        "don": true,
+        "com": true,
+        "doc": true
+    },
+    {
+        "maf": 3,
+        "don": true,
+        "com": true,
+        "doc": true
+    }
+]
