@@ -25,5 +25,8 @@
   "bugs": {
     "url": "https://github.com/cuttingbiscuit/discord-game-master/issues"
   },
-  "homepage": "https://github.com/cuttingbiscuit/discord-game-master#readme"
+  "homepage": "https://github.com/cuttingbiscuit/discord-game-master#readme",
+  "scripts": {
+    "start": "node index.js"
+  }
 }
