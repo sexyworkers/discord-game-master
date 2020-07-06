@@ -11,11 +11,7 @@ const { DiscordAPI } = require('../discord/discordapi')
 const { shuffle } = require('../utils')
 
 //Возвращает рандомного пользователя (номер)
-function randomInteger(count) {
 
-    let rnd = Math.floor(random() * (count + 1))
-    return rnd
-}
 function formRules(maf, don, com, doc, pCount, mId, recieved) {
     pCount -= (maf + don + doc + com)
     let embed = {
@@ -78,13 +74,11 @@ function formRules(maf, don, com, doc, pCount, mId, recieved) {
 
     recieved.channel.send({ embed })
 }
-var Game=0
+var Game = 1
 function run(client, recieved) {
     const myDiscord = new DiscordAPI(client, recieved)  //Инит апи нашей
 
     let command = recieved.content.split(' ').slice(1)  //Убираем первое слово ака команда
-
-
 
     let masterId = '' // сохраняет ведущего
     let viewersId = [] // зрители
@@ -100,7 +94,11 @@ function run(client, recieved) {
         console.log(`${masterId} is masterid`)
         console.log('viewers: ', viewersId)
 
+        // TEST: CHANGE THIS
         players = myDiscord.getAllConnectedMembers(process.env.CHANNEL_ID)
+        // TO THIS
+        //players = myDiscord.getAllConnectedMembers(myDiscord.getVoiceChannel())
+
         players = players.filter(el => {
             return (!viewersId.includes(el) && el != masterId)
         })
@@ -109,38 +107,41 @@ function run(client, recieved) {
 
         if (players.length >= 4) {
             Game++
-            const numOfGame='Игра №'+Game+'\n'
+            const numOfGame = 'Игра №' + Game + '\n'
+            let forVedushii = 'Роли:\n'
             formRules(maf, don, com, doc, players.length, masterId, recieved)
             shuffle(players).forEach(el => {
                 if (maf > 0) {
-                    myDiscord.sendRole(el, numOfGame+"Ты мафия. Обыкновенная мафия(не дон)")
+                    myDiscord.sendRole(el, numOfGame + "Ты мафия. Обыкновенная мафия(не дон)")
+                    forVedushii += `<@${el}> - мафия\n`
                     maf--
                 } else if (don) {
-                    myDiscord.sendRole(el, numOfGame+"Ты дон. Рули парадом мафиози")
+                    myDiscord.sendRole(el, numOfGame + "Ты дон. Рули парадом мафиози")
+                    forVedushii += `<@${el}> - дон\n`
                     don = false
                 } else if (doc) {
-                    myDiscord.sendRole(el, numOfGame+"Ты доктор. Лечи людей :)")
+                    myDiscord.sendRole(el, numOfGame + "Ты доктор. Лечи людей :)")
+                    forVedushii += `<@${el}> - доктор\n`
                     doc = false
                 } else if (com) {
-                    myDiscord.sendRole(el, numOfGame+"Ты комиссар . Надо вычислить мафию")
+                    myDiscord.sendRole(el, numOfGame + "Ты комиссар . Надо вычислить мафию")
+                    forVedushii += `<@${el}> - комиссар\n`
                     com = false
                 } else {
-                    myDiscord.sendRole(el, numOfGame+"Ты мирный житель. Веселой игры :D ")
+                    myDiscord.sendRole(el, numOfGame + "Ты мирный житель. Веселой игры :D ")
                 }
             })
 
             let deleteBeforeDash = (nick) => {
-                console.log('вход:', nick)
                 nick = nick.split('-')
                 if (nick.length > 1)
                     nick = nick[1]
                 else
                     nick = nick[0]
                 nick = nick.trim()
-                console.log('выход:', nick)
                 return nick
             }
-            shuffle(players).forEach( (el, i) => {
+            shuffle(players).forEach((el, i) => {
                 let oldNick = /*await*/ myDiscord.getNickname(el)
 
                 oldNick = deleteBeforeDash(oldNick)
@@ -159,8 +160,9 @@ function run(client, recieved) {
             if (myDiscord.isOwner(`${masterId}`))
                 recieved.channel.send(`Не могу изменить никнейм владельцу севрера! <@${masterId}>, измени свой никнейм на ${masterName}`)
             else
-                /*await*/ myDiscord.setNickname(masterId, masterName)
-        } else {
+                /*await*/ myDiscord.setNickname(masterId, masterName)        
+            myDiscord.sendRole(masterId, forVedushii)
+        } else {    
             throw 'Слишком мало человек в голосовом канале. Позовите побольше друзей и начинайте игру'
         }
 
