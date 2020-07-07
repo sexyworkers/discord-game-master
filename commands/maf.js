@@ -85,7 +85,7 @@ function run(client, recieved) {
     let players = [] // игроки
     //
     if (command.length > 0) { //Значит указан ведущий
-        const reg = /\d+/ //command.match(reg2)
+        const reg = /\d+/
         masterId = command.shift().match(reg)   //Получили айди админа
 
         command.forEach(el => {
@@ -95,9 +95,9 @@ function run(client, recieved) {
         console.log('viewers: ', viewersId)
 
         // TEST: CHANGE THIS
-        players = myDiscord.getAllConnectedMembers(process.env.CHANNEL_ID)
+        //players = myDiscord.getAllConnectedMembers(process.env.CHANNEL_ID)
         // TO THIS
-        //players = myDiscord.getAllConnectedMembers(myDiscord.getVoiceChannel())
+        players = myDiscord.getAllConnectedMembers(myDiscord.getVoiceChannel())
 
         players = players.filter(el => {
             return (!viewersId.includes(el) && el != masterId)

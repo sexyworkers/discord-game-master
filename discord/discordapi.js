@@ -5,11 +5,11 @@ class DiscordAPI {
         this.client = client
         this.recieved = recieved
         // get serverID and replace all process.env.SERVER_ID with this.serverID
-        this.serverID = null
+        this.serverID = recieved.channel.guild.id
     }
 
     getVoiceChannel() {
-        for (channel of this.recieved.guild.voiceStates.cache)
+        for (let channel of this.recieved.guild.voiceStates.cache)
             return channel[1].channelID
         return
     }
@@ -34,20 +34,20 @@ class DiscordAPI {
     getNickname(userID) {
         //console.log('nickname', this.client.users.cache.get(`${userID}`).username)
         //client.guilds.cache.get(process.env.SERVER_ID).members.cache.get('643837625152831520')
-        return this.client.guilds.cache.get(process.env.SERVER_ID).members.cache.get(`${userID}`).nickname
+        return this.client.guilds.cache.get(this.serverID).members.cache.get(`${userID}`).nickname
     }
 
     setNickname(userID, nickname) {
         //client.guilds.cache.get(process.env.SERVER_ID).members.cache.get('643837625152831520')
         //console.log(this.client.guilds.cache.get('680051236900569096').members.cache.get(`${userID}`).user.username)
-        this.client.guilds.cache.get(process.env.SERVER_ID).members.cache.get(`${userID}`).setNickname(nickname)
+        this.client.guilds.cache.get(this.serverID).members.cache.get(`${userID}`).setNickname(nickname)
     }
 
 
     //или роль выше // можно попробовать обрабатывать код response 
     isOwner(userID) {
         //console.log(this.client.guilds.cache.get('680051236900569096').owner)
-        return userID === this.client.guilds.cache.get(process.env.SERVER_ID).ownerID
+        return userID === this.client.guilds.cache.get(this.serverID).ownerID
     }
 }
 

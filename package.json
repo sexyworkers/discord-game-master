@@ -9,7 +9,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
@@ -25,8 +25,5 @@
   "bugs": {
     "url": "https://github.com/cuttingbiscuit/discord-game-master/issues"
   },
-  "homepage": "https://github.com/cuttingbiscuit/discord-game-master#readme",
-  "scripts": {
-    "start": "node index.js"
-  }
+  "homepage": "https://github.com/cuttingbiscuit/discord-game-master#readme"
 }

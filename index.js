@@ -22,12 +22,6 @@ async function loadCommands(path) {
 
 client.on("ready", () => {
     console.log(`Connected as ${client.user.tag}`)
-    //let guild = client.guilds.cache.get('680051236900569096')
-    // let guild = client.guilds.cache.filter(g => g.id === '680051236900569096').get('')
-    // for (g of guild) {
-    //     console.log(g[1].voiceStates)
-    // }
-    //console.log(guild.voiceStates.cache.filter(u => u.channelID === `${process.env.TEST_CHANNEL_ID}`))
     loadCommands('./commands')
 })
 
@@ -35,6 +29,7 @@ client.login(process.env.BOT_TOKEN)
 
 client.on("message", (recieved) => {
     if (recieved.author === client.user) return
+
     if (recieved.content.startsWith('!')) {
 
         let com = recieved.content.split(' ')[0].slice(1)
@@ -48,6 +43,5 @@ client.on("message", (recieved) => {
             recieved.channel.send("Такой команды не существует.")
         }
     }
-    //recieved.channel.send(recieved.content)
 })
 
