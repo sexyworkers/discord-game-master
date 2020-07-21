@@ -74,7 +74,7 @@ function formRules(maf, don, com, doc, pCount, mId, recieved) {
 
     recieved.channel.send({ embed })
 }
-var Game = 1
+let Game = 0
 function run(client, recieved) {
     const myDiscord = new DiscordAPI(client, recieved)  //Инит апи нашей
 
@@ -91,18 +91,13 @@ function run(client, recieved) {
         command.forEach(el => {
             viewersId.push(el.match(reg)[0])
         })
-        console.log(`${masterId} is masterid`)
-        console.log('viewers: ', viewersId)
 
-        // TEST: CHANGE THIS
-        //players = myDiscord.getAllConnectedMembers(process.env.CHANNEL_ID)
-        // TO THIS
         players = myDiscord.getAllConnectedMembers(myDiscord.getVoiceChannel())
 
         players = players.filter(el => {
             return (!viewersId.includes(el) && el != masterId)
         })
-        console.log('players', players)
+
         let { maf, don, com, doc } = require('../games/mafia.json')[players.length]    //Читаю правила (массив)
 
         if (players.length >= 4) {
@@ -147,14 +142,13 @@ function run(client, recieved) {
                 oldNick = deleteBeforeDash(oldNick)
 
                 let newNick = ((i + 1) >= 10) ? ('l' + (i + 1) % 10) : (i + 1) + ' - ' + oldNick
-                console.log(el + ' - ' + newNick)
 
                 if (myDiscord.isOwner(el))
                     recieved.channel.send(`Не могу изменить никнейм владельцу севрера! <@${el}>, измени свой никнейм на ${newNick}`)
                 else
                     /*await*/ myDiscord.setNickname(el, newNick)
             })
-            console.log('xsdsd')
+
             let masterName = /*await*/ myDiscord.getNickname(masterId)
             masterName = 'Ведущий - ' + deleteBeforeDash(masterName)
             if (myDiscord.isOwner(`${masterId}`))

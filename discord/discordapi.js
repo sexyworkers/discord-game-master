@@ -1,10 +1,7 @@
-const { shuffle } = require('../utils')
-
 class DiscordAPI {
     constructor(client, recieved) {
         this.client = client
         this.recieved = recieved
-        // get serverID and replace all process.env.SERVER_ID with this.serverID
         this.serverID = recieved.channel.guild.id
     }
 
@@ -32,21 +29,22 @@ class DiscordAPI {
     }
 
     getNickname(userID) {
-        //console.log('nickname', this.client.users.cache.get(`${userID}`).username)
-        //client.guilds.cache.get(process.env.SERVER_ID).members.cache.get('643837625152831520')
-        return this.client.guilds.cache.get(this.serverID).members.cache.get(`${userID}`).nickname
+        /*
+        we should return username if there is no server nickname
+        */
+
+        const { nickname, user } = this.client.guilds.cache.get(this.serverID).members.cache.get(`${userID}`)
+
+        return nickname ? nickname : user.username
     }
 
     setNickname(userID, nickname) {
-        //client.guilds.cache.get(process.env.SERVER_ID).members.cache.get('643837625152831520')
-        //console.log(this.client.guilds.cache.get('680051236900569096').members.cache.get(`${userID}`).user.username)
         this.client.guilds.cache.get(this.serverID).members.cache.get(`${userID}`).setNickname(nickname)
     }
 
 
     //или роль выше // можно попробовать обрабатывать код response 
     isOwner(userID) {
-        //console.log(this.client.guilds.cache.get('680051236900569096').owner)
         return userID === this.client.guilds.cache.get(this.serverID).ownerID
     }
 }
