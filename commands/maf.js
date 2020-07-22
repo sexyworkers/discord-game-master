@@ -89,7 +89,9 @@ function run(client, recieved) {
         masterId = command.shift().match(reg)   //Получили айди админа
 
         command.forEach(el => {
-            viewersId.push(el.match(reg)[0])
+            let id = el.match(reg)
+            if (id)
+                viewersId.push(id[0])
         })
 
         players = myDiscord.getAllConnectedMembers(myDiscord.getVoiceChannel())
