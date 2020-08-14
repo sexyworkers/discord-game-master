@@ -13,8 +13,8 @@ class DiscordAPI {
 
     //Возвращает массив пользователей, где пользователь
     // .send('sss') .tag() @alm#1234 <@!248080925919805440> .send()
-    getAllConnectedMembers(channelID) {
-        const members = this.recieved.guild.voiceStates.cache.filter(u => u.channelID === channelID)
+    async getAllConnectedMembers(channelID) {
+        const members = await this.recieved.guild.voiceStates.cache.filter(u => u.channelID === channelID)
 
         let players = []
 

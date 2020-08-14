@@ -94,13 +94,13 @@ function run(client, recieved) {
                 viewersId.push(id[0])
         })
 
-        players = myDiscord.getAllConnectedMembers(myDiscord.getVoiceChannel())
+        players = await myDiscord.getAllConnectedMembers(myDiscord.getVoiceChannel())
 
         players = players.filter(el => {
             return (!viewersId.includes(el) && el != masterId)
         })
 
-        let { maf, don, com, doc } = require('../games/mafia.json')[players.length]    //Читаю правила (массив)
+        let { maf, don, com, doc } = require('../games/mafia.json')[players.length] //Читаю правила (массив)
 
         if (players.length >= 4) {
             Game++

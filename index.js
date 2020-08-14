@@ -44,4 +44,3 @@ client.on("message", (recieved) => {
         }
     }
 })
-
