@@ -75,7 +75,7 @@ function formRules(maf, don, com, doc, pCount, mId, recieved) {
     recieved.channel.send({ embed })
 }
 let Game = 0
-function run(client, recieved) {
+async function run(client, recieved) {
     const myDiscord = new DiscordAPI(client, recieved)  //Инит апи нашей
 
     let command = recieved.content.split(' ').slice(1)  //Убираем первое слово ака команда
