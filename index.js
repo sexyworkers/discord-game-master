@@ -27,7 +27,7 @@ client.on("ready", () => {
 
 client.login(process.env.BOT_TOKEN)
 
-client.on("message", (recieved) => {
+client.on("message", async (recieved) => {
     if (recieved.author === client.user) return
 
     if (recieved.content.startsWith('!')) {
@@ -35,7 +35,7 @@ client.on("message", (recieved) => {
         let com = recieved.content.split(' ')[0].slice(1)
         if (commands[com] !== undefined)
             try {
-                commands[com].run(client, recieved)
+                await commands[com].run(client, recieved)
             } catch (error) {   //Ошибка должна выкидываться в текстовом варианте
                 recieved.channel.send('Упс, ошибка. ' + error)
             }
