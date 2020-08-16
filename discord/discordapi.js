@@ -28,12 +28,12 @@ class DiscordAPI {
         this.client.users.cache.get(`${userID}`).send(`${role}`)
     }
 
-    getNickname(userID) {
+    async getNickname(userID) {
         /*
         we should return username if there is no server nickname
         */
 
-        const { nickname, user } = this.client.guilds.cache.get(this.serverID).members.cache.get(`${userID}`)
+        const { nickname, user } = await this.client.guilds.cache.get(this.serverID).members.cache.get(`${userID}`)
 
         return nickname ? nickname : user.username
     }

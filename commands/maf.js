@@ -139,7 +139,7 @@ async function run(client, recieved) {
                 return nick
             }
             shuffle(players).forEach((el, i) => {
-                let oldNick = /*await*/ myDiscord.getNickname(el)
+                let oldNick = await myDiscord.getNickname(el)
 
                 oldNick = deleteBeforeDash(oldNick)
 
@@ -148,15 +148,15 @@ async function run(client, recieved) {
                 if (myDiscord.isOwner(el))
                     recieved.channel.send(`Не могу изменить никнейм владельцу севрера! <@${el}>, измени свой никнейм на ${newNick}`)
                 else
-                    /*await*/ myDiscord.setNickname(el, newNick)
+                     myDiscord.setNickname(el, newNick)
             })
 
-            let masterName = /*await*/ myDiscord.getNickname(masterId)
+            let masterName = await myDiscord.getNickname(masterId)
             masterName = 'Ведущий - ' + deleteBeforeDash(masterName)
             if (myDiscord.isOwner(`${masterId}`))
                 recieved.channel.send(`Не могу изменить никнейм владельцу севрера! <@${masterId}>, измени свой никнейм на ${masterName}`)
             else
-                /*await*/ myDiscord.setNickname(masterId, masterName)        
+                myDiscord.setNickname(masterId, masterName)        
             myDiscord.sendRole(masterId, forVedushii)
         } else {    
             throw 'Слишком мало человек в голосовом канале. Позовите побольше друзей и начинайте игру'
