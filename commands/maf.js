@@ -138,7 +138,7 @@ async function run(client, recieved) {
                 nick = nick.trim()
                 return nick
             }
-            shuffle(players).forEach((el, i) => {
+            shuffle(players).forEach(async (el, i) => {
                 let oldNick = await myDiscord.getNickname(el)
 
                 oldNick = deleteBeforeDash(oldNick)
